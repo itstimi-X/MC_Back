@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mbti_collector
     username: root
-    password: 0412
+    password: qijcoj-2naqky-gythUt
 
   jpa:
     open-in-view: false
