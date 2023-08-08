@@ -1,9 +1,9 @@
 package com.mini.mbti_collector.domain;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.*;
 
-import java.util.Date;
 
 @Entity
 @Table(name = "User")
@@ -27,9 +27,8 @@ public class User {
     @Setter
     private String password;
 
-    @Column(name = "createdAt", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    @Column(name = "createdAt", nullable = false, columnDefinition = "TIMESTAMP")
+    private LocalDateTime createdAt;
 
     @Setter
     private Boolean deleted;
