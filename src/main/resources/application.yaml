@@ -4,6 +4,14 @@ spring:
     url: jdbc:mysql://localhost:3306/mbti_collector
     username: root
     password: qijcoj-2naqky-gythUt
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ssk0710402@gmail.com
+    password: rffhomdpqplzohvl
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 
   jpa:
     open-in-view: false
