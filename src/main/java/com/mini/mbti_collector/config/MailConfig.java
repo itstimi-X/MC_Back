@@ -1,4 +1,4 @@
-package com.mini.mbti_collector.configuration;
+package com.mini.mbti_collector.config;
 
 import java.util.Properties;
 import org.springframework.context.annotation.Bean;
