@@ -1,7 +1,7 @@
 package com.mini.mbti_collector.controller;
 
+import com.mini.mbti_collector.dto.MailDto;
 import com.mini.mbti_collector.service.MailSendService;
-import java.util.HashMap;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +22,17 @@ public class MailController {
 
 
     @PostMapping(value = "/api/email-verification", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> mailCheck(@RequestBody HashMap<String, Object> user) {
-        String email = (String) user.get("email");
-        String authNum = mailSendService.joinEmail(email);
+    public ResponseEntity<MailDto.Response> mailCheck(@RequestBody MailDto.Request requestDto) {
 
-        log.info("email : " + user.get("email"));
+        String authNum = mailSendService.joinEmail(requestDto.getEmail());
+        MailDto.Response response = new MailDto.Response();
+        response.setAuthNum(authNum);
+        response.setMessage("인증번호가 발송되었습니다.");
+        response.setStatus(HttpStatus.OK.value());
+
+        log.info("email : " + requestDto.getEmail());
         log.info("checkNum : " + authNum);
 
-        return ResponseEntity.status(HttpStatus.OK).body(authNum);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
