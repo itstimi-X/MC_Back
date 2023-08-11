@@ -1,5 +1,6 @@
 package com.mini.mbti_collector.service;
 
+import com.mini.mbti_collector.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Random;
@@ -19,6 +20,7 @@ public class MailSendServiceImpl implements MailSendService {
     private static final int MIN_AUTH_NUMBER = 100000;
 
     private final JavaMailSender javaMailSender; // JavaMailSender로 변경
+    private final UserRepository userRepository;
 
     @Override
     public int makeRandomNumber() { // 반환 타입을 void에서 int로 변경
@@ -58,5 +60,10 @@ public class MailSendServiceImpl implements MailSendService {
             log.error("Error sending email to {}", email, e);
             throw new RuntimeException("Failed to send email.", e); // 오류 메시지를 조금 더 구체적으로 변경
         }
+    }
+
+    @Override
+    public boolean isEmailRegistered(String email) {
+        return userRepository.findByEmail(email).isPresent(); // 이메일로 사용자를 조회하여 결과가 있으면 이미 등록된 것으로 판단합니다.
     }
 }

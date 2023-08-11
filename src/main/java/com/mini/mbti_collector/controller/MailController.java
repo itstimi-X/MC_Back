@@ -25,6 +25,11 @@ public class MailController {
     @PostMapping(value = "/api/email-verification", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MailDto.Response> mailCheck(@Valid @RequestBody MailDto.Request requestDto) { // @Valid를 추가하여 검증을 실행합니다. 만약 검증에 실패하면, Spring은 MethodArgumentNotValidException를 발생시킵니다.
 
+        // 이미 등록된 이메일 체크 로직
+        if(mailSendService.isEmailRegistered(requestDto.getEmail())) {
+            return ResponseEntity.badRequest().body(new MailDto.Response(null, "Email already registered.", 400));
+        }
+
         String authNum = mailSendService.joinEmail(requestDto.getEmail());
         MailDto.Response response = new MailDto.Response();
         response.setAuthNum(authNum);

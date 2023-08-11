@@ -10,4 +10,6 @@ public interface MailSendService {
 
     //    메일을 보내는 메소드
     void mailSend(String message,String email, String title);
+
+    boolean isEmailRegistered(String email);
 }
