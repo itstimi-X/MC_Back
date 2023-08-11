@@ -2,6 +2,7 @@ package com.mini.mbti_collector.controller;
 
 import com.mini.mbti_collector.dto.MailDto;
 import com.mini.mbti_collector.service.MailSendService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class MailController {
 
 
     @PostMapping(value = "/api/email-verification", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MailDto.Response> mailCheck(@RequestBody MailDto.Request requestDto) {
+    public ResponseEntity<MailDto.Response> mailCheck(@Valid @RequestBody MailDto.Request requestDto) { // @Valid를 추가하여 검증을 실행합니다. 만약 검증에 실패하면, Spring은 MethodArgumentNotValidException를 발생시킵니다.
 
         String authNum = mailSendService.joinEmail(requestDto.getEmail());
         MailDto.Response response = new MailDto.Response();
