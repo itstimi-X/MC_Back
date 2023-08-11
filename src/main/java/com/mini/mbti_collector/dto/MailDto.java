@@ -3,14 +3,15 @@ package com.mini.mbti_collector.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 public class MailDto {
 
-    @Data
+    @Getter
+    @Setter
     @NoArgsConstructor // 파라미터가 없는 기본 생성자를 자동으로 생성합니다.
     @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자를 자동으로 생성합니다.
     public static class Request {
@@ -20,7 +21,8 @@ public class MailDto {
         private String email;
     }
 
-    @Data
+    @Getter
+    @Setter
     @NoArgsConstructor // 파라미터가 없는 기본 생성자를 자동으로 생성합니다.
     @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자를 자동으로 생성합니다.
     public static class Response {
