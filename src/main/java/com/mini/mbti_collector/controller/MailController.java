@@ -44,4 +44,10 @@ public class MailController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PostMapping(value = "/api/email-verification/check", consumes = MediaType.APPLICATION_JSON_VALUE)
+    private boolean emailCertification(@Valid @RequestBody MailDto.Check checkDto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return mailSendService.mailCertification(checkDto.getEmail(), checkDto.getAuthNum(), session);
+    }
 }

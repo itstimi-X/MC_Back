@@ -68,4 +68,20 @@ public class MailSendServiceImpl implements MailSendService {
     public boolean isEmailRegistered(String email) {
         return userRepository.findByEmail(email).isPresent(); // 이메일로 사용자를 조회하여 결과가 있으면 이미 등록된 것으로 판단합니다.
     }
+
+    @Override
+    public boolean mailCertification(String email, String authNum, HttpSession session) {
+
+        try {
+            int generationCode = (int) session.getAttribute(email);
+            int inputCode = Integer.parseInt(authNum);
+            if (generationCode == inputCode) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }
