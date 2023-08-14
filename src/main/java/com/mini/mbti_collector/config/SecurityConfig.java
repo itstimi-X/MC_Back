@@ -42,8 +42,20 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop", "http://localhost:5500"));
+        configuration.setAllowedOrigins(List.of("chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop", "http://127.0.0.1:5500"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"));
+
+        // 허용될 헤더들을 설정합니다.
+        configuration.setAllowedHeaders(List.of(
+                "Accept",
+                "Content-Type",
+                "Referer",
+                "Sec-Ch-Ua",
+                "Sec-Ch-Ua-Mobile",
+                "Sec-Ch-Ua-Platform",
+                "User-Agent"
+        ));
+
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
