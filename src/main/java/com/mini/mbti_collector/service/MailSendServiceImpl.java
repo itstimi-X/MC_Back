@@ -3,6 +3,7 @@ package com.mini.mbti_collector.service;
 import com.mini.mbti_collector.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpSession;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,7 +32,7 @@ public class MailSendServiceImpl implements MailSendService {
     }
 
     @Override
-    public String joinEmail(String email) {
+    public String joinEmail(String email, HttpSession session) {
         int authNumber = makeRandomNumber();
 
         String title = "[MBTI_Collector] 회원가입을 위한 인증메일입니다.";
@@ -41,12 +42,13 @@ public class MailSendServiceImpl implements MailSendService {
                         "인증번호는 " + authNumber + " 입니다." +
                         "<br><br>" +
                         "해당 인증번호를 인증번호 확인란에 기입하여 주시기바랍니다.";
-        mailSend(message, email, title);
+        mailSend(message, email, title, session);
+        session.setAttribute(""+email, authNumber);
         return Integer.toString(authNumber);
     }
 
     @Override
-    public void mailSend(String message, String email, String title) {
+    public void mailSend(String message, String email, String title, HttpSession session) {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
