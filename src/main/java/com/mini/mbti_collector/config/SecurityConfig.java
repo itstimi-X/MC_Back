@@ -1,5 +1,6 @@
 package com.mini.mbti_collector.config;
 
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,23 +45,13 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop", "http://127.0.0.1:5500"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"));
-
-        // 허용될 헤더들을 설정합니다.
-        configuration.setAllowedHeaders(List.of(
-                "Accept",
-                "Content-Type",
-                "Referer",
-                "Sec-Ch-Ua",
-                "Sec-Ch-Ua-Mobile",
-                "Sec-Ch-Ua-Platform",
-                "User-Agent"
-        ));
-
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(true); // 쿠키 전송을 허용합니다.
+        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", configuration); // 모든 경로에 대해 CORS 설정을 적용합니다.
+
         return source;
     }
 }

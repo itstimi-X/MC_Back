@@ -43,7 +43,14 @@ public class MailSendServiceImpl implements MailSendService {
                         "<br><br>" +
                         "해당 인증번호를 인증번호 확인란에 기입하여 주시기바랍니다.";
         mailSend(message, email, title, session);
-        session.setAttribute(""+email, authNumber);
+        session.setAttribute(email, authNumber);
+        Object authNum = session.getAttribute(email);
+        if (authNum != null) {
+            System.out.println("Email: " + email + ", Auth Number: " + authNum);
+        } else {
+            System.out.println("No attribute found in session for email: " + email);
+        }
+
         return Integer.toString(authNumber);
     }
 
@@ -71,16 +78,29 @@ public class MailSendServiceImpl implements MailSendService {
 
     @Override
     public boolean mailCertification(String email, String authNum, HttpSession session) {
-
+        Logger logger = LoggerFactory.getLogger(getClass()); // 클래스 내에 로거 객체 생성
         try {
-            int generationCode = (int) session.getAttribute(email);
-            int inputCode = Integer.parseInt(authNum);
-            if (generationCode == inputCode) {
-                return true;
+            Object sauthNum = session.getAttribute(email);
+            if(sauthNum != null) {
+                int savedAuthNum = (Integer) sauthNum;
+                int inputCode = Integer.parseInt(authNum);
+                if (savedAuthNum == inputCode) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                // 세션 속성이 없는 경우에 대한 처리...
+                throw new IllegalStateException("No attribute found in session for email: " + email);
             }
+        } catch (NumberFormatException e) {
+            logger.error("Failed to parse authNum as Integer: {}", authNum, e); // authNum의 변환 실패에 대한 로그 출력
+            throw new IllegalArgumentException("Invalid authNum provided: " + authNum, e);
+        } catch (IllegalStateException e) {
+            logger.error("No attribute found in session for email: {}", email, e); // 세션에서 속성을 찾지 못한 경우에 대한 로그 출력
+            throw e;
         } catch (Exception e) {
+            logger.error("Unexpected error occurred during mail certification: {}", e.getMessage(), e); // 그 외 예상치 못한 예외 발생시에 대한 로그 출력
             throw e;
         }
     }

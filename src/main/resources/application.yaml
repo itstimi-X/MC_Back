@@ -45,3 +45,6 @@ spring:
       doc-expansion: none
     paths-to-match:
       - /api/**
+
+# 세션 타임아웃 설정 (예: 30분)
+  server.servlet.session.timeout: 30m
