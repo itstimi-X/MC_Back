@@ -14,10 +14,8 @@ spring:
       mail.smtp.starttls.enable: true
       mail.smtp.socketFactory.port: 465
       mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
-  spring:
-    thymeleaf:
-      check-template-location: false
-
+  thymeleaf:
+    check-template-location: false
   jpa:
     open-in-view: false
     defer-datasource-initialization: true
