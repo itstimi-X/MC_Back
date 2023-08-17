@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,13 +41,8 @@ public class MailController {
         response.setMessage("인증번호가 발송되었습니다.");
         response.setStatus(HttpStatus.OK.value());
 
-        // 쿠키 생성 및 설정
-        Cookie cookie = new Cookie("myCookie", "myValue");
-        cookie.setSecure(false); // HTTPS만 쿠키를 전송하도록 설정
-        cookie.setHttpOnly(false); // 자바스크립트에서 쿠키에 접근할 수 없도록 설정
-        cookie.setPath("/"); // 쿠키의 경로 설정
-//        response.addCookie(cookie); // 쿠키 추가
-
+        String sessionId = session.getId();
+        log.info("sessionId : " + sessionId);
         log.info("email : " + requestDto.getEmail());
         log.info("checkNum : " + authNum);
 
@@ -56,6 +52,9 @@ public class MailController {
     @PostMapping(value = "/api/email-verification/check", consumes = MediaType.APPLICATION_JSON_VALUE)
     private boolean emailCertification(@Valid @RequestBody MailDto.Check checkDto, HttpServletRequest request) {
         HttpSession session = request.getSession();
+        String sessionId = session.getId();
+        log.info("sessionId : " + sessionId);
+
         return mailSendService.mailCertification(checkDto.getEmail(), checkDto.getAuthNum(), session);
     }
 }
