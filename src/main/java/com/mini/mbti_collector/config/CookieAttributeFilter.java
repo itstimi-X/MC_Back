@@ -45,11 +45,11 @@ public class CookieAttributeFilter implements Filter {
         boolean firstHeader = true;
         for (String header : headers) { // there can be multiple Set-Cookie attributes
             if (firstHeader) {
-                response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=" + sameSite));
+                response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; Secure; %s", header,  "SameSite=" + sameSite));
                 firstHeader = false;
                 continue;
             }
-            response.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; %s", header, "SameSite=" + sameSite));
+            response.addHeader(HttpHeaders.SET_COOKIE, String.format("%s; Secure; %s", header,  "SameSite=" + sameSite));
         }
 
     }
