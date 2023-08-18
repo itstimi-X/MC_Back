@@ -13,4 +13,9 @@ public class UserServiceImpl implements UserService{
     public boolean isNicknameRegistered(String nickname) {
         return userRepository.existsByNickname(nickname);
     }
+
+    @Override
+    public boolean isEmailRegistered(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }
