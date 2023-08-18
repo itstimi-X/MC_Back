@@ -16,4 +16,10 @@ public class UserController {
     public ResponseEntity<Boolean> isNicknameRegistered(@PathVariable String nickname) {
         return ResponseEntity.ok(userService.isNicknameRegistered(nickname));
     }
+
+    @GetMapping("/api/users/check-email/{email}")
+    public ResponseEntity<Boolean> isEmailRegistered(@PathVariable String email) {
+        return ResponseEntity.ok(userService.isEmailRegistered(email));
+    }
+
 }
