@@ -12,8 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-    @GetMapping("/api/users/check-username/{nickname}")
+    @GetMapping("/api/users/check-nickname/{nickname}")
     public ResponseEntity<Boolean> isNicknameRegistered(@PathVariable String nickname) {
         return ResponseEntity.ok(userService.isNicknameRegistered(nickname));
     }
+
+    @GetMapping("/api/users/check-email/{email}")
+    public ResponseEntity<Boolean> isEmailRegistered(@PathVariable String email) {
+        return ResponseEntity.ok(userService.isEmailRegistered(email));
+    }
+
 }
