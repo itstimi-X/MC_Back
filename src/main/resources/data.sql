@@ -1,0 +1,1 @@
+INSERT INTO mbti_collector.users (deleted, user_idx, created_at, nickname, password, email) VALUES ('N', 1, '2023-08-18 10:13:41', '인후', 'llllll', 'ssk07104@naver.com')
