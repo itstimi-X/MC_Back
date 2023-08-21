@@ -6,6 +6,7 @@ import lombok.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Users")
 public class User {
 
@@ -28,6 +29,7 @@ public class User {
     @Column(name = "password", nullable = false, length = 60)
     private String password;
 
+    @Setter
     @Column(name = "createdAt", nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
@@ -35,4 +37,14 @@ public class User {
     @Setter
     @Column(name = "deleted", nullable = false, length = 1)
     private String deleted;
+
+    public static User of(String nickname, String email, String password) {
+        User user = new User();
+        user.nickname = nickname;
+        user.email = email;
+        user.password = password;
+        user.createdAt = LocalDateTime.now(); // createdAt 필드를 현재 시간으로 설정합니다.
+        user.deleted = "N"; // 필요하다면 이런식으로 deleted 필드도 설정할 수 있습니다.
+        return user;
+    }
 }
