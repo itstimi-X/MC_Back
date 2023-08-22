@@ -1,22 +1,22 @@
 package com.mini.mbti_collector.dto;
 
-import com.mini.mbti_collector.domain.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor // 파라미터가 없는 기본 생성자를 자동으로 생성합니다.
-@AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자를 자동으로 생성합니다.
+
 public class UserDto {
 
+    @Getter
+    @Setter
+    @NoArgsConstructor // 파라미터가 없는 기본 생성자를 자동으로 생성합니다.
+    @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자를 자동으로 생성합니다.
+    public static class signUpRequest {
 
         @NotBlank(message = "닉네임을 입력해주세요.")
         @Size(min = 2, max = 10, message = "닉네임은 2자 이상 10자 이하로 입력해주세요.")
