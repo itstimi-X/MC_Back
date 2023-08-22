@@ -7,5 +7,5 @@ public interface UserService {
 
     boolean isEmailRegistered(String email);
 
-    void signUp(UserDto userDto);
+    void signUp(UserDto userDto) throws Exception;
 }

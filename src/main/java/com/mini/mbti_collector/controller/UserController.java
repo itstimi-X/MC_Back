@@ -35,8 +35,14 @@ public class UserController {
             return ResponseEntity.badRequest().body(errorMessage);
         }
 
-        // 회원가입 로직 처리
-        userService.signUp(userDto);
+        try {
+            // 회원가입 로직 처리
+            userService.signUp(userDto);
+        } catch (Exception e) {
+            // 서비스 메서드에서 발생하는 에러 처리
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
         return ResponseEntity.ok("회원가입 성공");
     }
 }

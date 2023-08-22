@@ -24,8 +24,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void signUp(UserDto userDto) {
+    public void signUp(UserDto userDto) throws Exception{
+        // 닉네임 중복 검사
+        if (isNicknameRegistered(userDto.getNickname())) {
+            throw new Exception("이미 사용 중인 닉네임입니다.");
+        }
+        // 이메일 중복 검사
+        if (isEmailRegistered(userDto.getEmail())) {
+            throw new Exception("이미 사용 중인 이메일입니다.");
+        }
+        // 비밀번호 해싱
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        // 사용자 정보 저장
         User user = User.of(userDto.getNickname(), userDto.getEmail(), encodedPassword);
         userRepository.save(user);
     }
