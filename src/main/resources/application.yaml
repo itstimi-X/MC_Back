@@ -47,6 +47,11 @@ spring:
     paths-to-match:
       - /api/**
 
+# JWT Configuration
+jwt:
+  secret: YOUR_JWT_SECRET_KEY
+  token-expiration: 3600000  # 1 hour in milliseconds
+
 # 세션 타임아웃 설정 (예: 30분)
   server.servlet.session.timeout: 30m
 
