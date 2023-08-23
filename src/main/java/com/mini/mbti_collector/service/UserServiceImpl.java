@@ -26,12 +26,6 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void signUp(UserDto userDto) throws Exception {
-        
-    }
-
-
-    @Override
     public void signUp(UserDto.signUpRequest userDto) throws Exception{
         // 닉네임 중복 검사
         if (isNicknameRegistered(userDto.getNickname())) {

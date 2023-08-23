@@ -12,6 +12,9 @@ import lombok.Setter;
 
 public class UserDto {
 
+
+
+
     @Getter
     @Setter
     @NoArgsConstructor // 파라미터가 없는 기본 생성자를 자동으로 생성합니다.
