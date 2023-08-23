@@ -27,8 +27,9 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void signUp(UserDto userDto) throws Exception {
-
+        
     }
+
 
     @Override
     public void signUp(UserDto.signUpRequest userDto) throws Exception{
