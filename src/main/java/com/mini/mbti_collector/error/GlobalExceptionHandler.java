@@ -1,4 +1,4 @@
-package com.mini.mbti_collector.exception;
+package com.mini.mbti_collector.error;
 
 import java.util.HashMap;
 import java.util.Map;
