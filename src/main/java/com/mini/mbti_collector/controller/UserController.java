@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/api/users/sign-up")
-    public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto, BindingResult bindingResult) {
+    public ResponseEntity<?> signup(@Valid @RequestBody UserDto.signUpRequest userDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             // 유효성 검사에 실패한 경우, 오류 메시지 처리
             String errorMessage = bindingResult.getFieldError().getDefaultMessage();
