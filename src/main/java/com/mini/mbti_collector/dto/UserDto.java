@@ -46,7 +46,9 @@ public class UserDto {
     @NoArgsConstructor // 파라미터가 없는 기본 생성자를 자동으로 생성합니다.
     @AllArgsConstructor // 모든 필드 값을 파라미터로 받는 생성자를 자동으로 생성합니다.
     public static class loginResponse {
-        private String accessToken;
+        private boolean success;
+        private String token; // 실패 시 null
+        private String errorMessage; // 성공 시 null
     }
 //        public User toEntity() {
 //            User user = new User();
