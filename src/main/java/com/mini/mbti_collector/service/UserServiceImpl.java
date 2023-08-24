@@ -44,11 +44,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDto.loginResponse login(UserDto.loginRequest userDto) throws Exception {
-        User user = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() ->
-                new CustomAuthenticationException("유저네임 또는 비밀번호가 잘못되었습니다."));
+        User user = userRepository.findByEmail(userDto.getEmail()).orElse(null);
 
-        if (!passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
-            throw new CustomAuthenticationException("유저네임 또는 비밀번호가 잘못되었습니다.");
+        if (user == null || !passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+            return new UserDto.loginResponse(false, null, "유저네임 또는 비밀번호가 잘못되었습니다.");
         }
 
         String accessToken = jwtProvider.createAccessToken(user.getEmail(), user.getNickname());

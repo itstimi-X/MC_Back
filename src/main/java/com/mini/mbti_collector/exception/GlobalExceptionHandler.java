@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
@@ -27,13 +28,21 @@ public class GlobalExceptionHandler {
     }
     // CustomAuthenticationException 처리를 위한 핸들러 추가
     @ExceptionHandler(CustomAuthenticationException.class)
-    public ResponseEntity<?> handleCustomAuthenticationException(
-            CustomAuthenticationException ex, WebRequest request) {
+    public ResponseEntity<?> handleAuthenticationException(CustomAuthenticationException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", false);
+        response.put("message", ex.getMessage());
 
-        Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("success", false);
-        responseBody.put("error", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
 
-        return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);
+    // AccessDeniedException 처리를 위한 핸들러
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", false);
+        response.put("message", "접근이 거부되었습니다.");
+
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 }
