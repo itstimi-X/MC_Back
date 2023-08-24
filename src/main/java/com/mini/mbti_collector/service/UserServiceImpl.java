@@ -1,7 +1,9 @@
 package com.mini.mbti_collector.service;
 
+import com.mini.mbti_collector.Security.JwtProvider;
 import com.mini.mbti_collector.domain.User;
 import com.mini.mbti_collector.dto.UserDto;
+import com.mini.mbti_collector.exception.CustomAuthenticationException;
 import com.mini.mbti_collector.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final JwtProvider jwtProvider;
     @Override
     public boolean isNicknameRegistered(String nickname) {
         return userRepository.existsByNickname(nickname);
@@ -38,6 +40,19 @@ public class UserServiceImpl implements UserService{
         // 사용자 정보 저장
         User user = User.of(userDto.getNickname(), userDto.getEmail(), encodedPassword);
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDto.loginResponse login(UserDto.loginRequest userDto) throws Exception {
+        User user = userRepository.findByEmail(userDto.getEmail()).orElseThrow(() ->
+                new CustomAuthenticationException("유저네임 또는 비밀번호가 잘못되었습니다."));
+
+        if (!passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+            throw new CustomAuthenticationException("유저네임 또는 비밀번호가 잘못되었습니다.");
+        }
+
+        String accessToken = jwtProvider.createAccessToken(user.getEmail(), user.getNickname());
+        return new UserDto.loginResponse(true, accessToken, null);  // 로그인 성공시 응답 수정
     }
 
 }

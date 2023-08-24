@@ -4,6 +4,7 @@ import com.mini.mbti_collector.dto.UserDto;
 import com.mini.mbti_collector.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,5 +45,15 @@ public class UserController {
         }
 
         return ResponseEntity.ok("회원가입 성공");
+    }
+
+    @PostMapping("/api/users/login")
+    public ResponseEntity<?> login(@RequestBody UserDto.loginRequest userDto) {
+        try {
+            UserDto.loginResponse response = userService.login(userDto);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
     }
 }

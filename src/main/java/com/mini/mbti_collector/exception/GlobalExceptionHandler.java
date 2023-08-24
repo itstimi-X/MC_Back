@@ -25,4 +25,15 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+    // CustomAuthenticationException 처리를 위한 핸들러 추가
+    @ExceptionHandler(CustomAuthenticationException.class)
+    public ResponseEntity<?> handleCustomAuthenticationException(
+            CustomAuthenticationException ex, WebRequest request) {
+
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("success", false);
+        responseBody.put("error", ex.getMessage());
+
+        return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);
+    }
 }

@@ -47,8 +47,12 @@ spring:
     paths-to-match:
       - /api/**
 
-# 세션 타임아웃 설정 (예: 30분)
-  server.servlet.session.timeout: 30m
+# JWT Configuration
+jwt:
+  secret: YOUR_JWT_SECRET_KEY
+  token-expiration: 3600000  # 1 hour in milliseconds
+
+
 
 server:
   ssl:
@@ -57,3 +61,5 @@ server:
     key-store-password: acrofuture
     key-alias: tomcat
   port : 8443
+    # 세션 타임아웃 설정 (예: 30분)
+  servlet.session.timeout: 30m
