@@ -40,14 +40,6 @@ public class SecurityConfig {
                     }
                 })
                 .csrf(csrf -> csrf.disable())
-                .exceptionHandling(exHandling -> {
-                    exHandling.authenticationEntryPoint((request, response, authException) -> {
-                        throw authException;
-                    });
-                    exHandling.accessDeniedHandler((request, response, accessDeniedException) -> {
-                        throw accessDeniedException;
-                    });
-                })
                 .addFilterBefore(corsFilter, ChannelProcessingFilter.class); // CORS 필터 추가
         return http.build();
     }
