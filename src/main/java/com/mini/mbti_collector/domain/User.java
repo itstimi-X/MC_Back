@@ -1,12 +1,17 @@
 package com.mini.mbti_collector.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +48,9 @@ public class User {
     @Column(name = "deleted", nullable = false, length = 1)
     @Getter @Setter
     private String deleted;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MbtiResult> mbtiResults = new ArrayList<>();
 
     public static User of(String nickname, String email, String password) {
         User user = new User();
