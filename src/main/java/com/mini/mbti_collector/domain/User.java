@@ -42,7 +42,7 @@ public class User {
     @Getter @Setter
     private String password;
 
-    @Column(name = "createdAt", nullable = false, columnDefinition = "TIMESTAMP")
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
 
     @Column(name = "deleted", nullable = false, length = 1)
