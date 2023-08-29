@@ -22,7 +22,7 @@ public class MbtiController {
 
     private final MbtiService mbtiService;
     private static final Logger logger = LoggerFactory.getLogger(MbtiServiceImpl.class);
-    @PostMapping("/mbti/save")
+    @PostMapping("/api/mbti/save")
     public ResponseEntity<?> saveMbtiResult(@RequestHeader("Authorization") String authorizationHeader, @RequestBody @Valid MbtiDto.Request request) {
         logger.info("ePercent: {}, nPercent: {}, tPercent: {}, jPercent: {}",
                 request.getEPercent(), request.getNPercent(), request.getTPercent(), request.getJPercent());
