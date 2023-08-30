@@ -36,5 +36,18 @@ public class MbtiController {
         }
     }
 
+    @PostMapping("/api/mbti/latest")
+    public ResponseEntity<?> getLatestMbtiResult(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            MbtiDto.LatestResult result = mbtiService.getLatestMbtiResult(authorizationHeader);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (CustomAuthenticationException e) {
+            return new ResponseEntity<>(Map.of("success", false, "message", e.getMessage()), HttpStatus.UNAUTHORIZED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("success", false, "message", "Failed to retrieve the latest MBTI result."), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
 }
