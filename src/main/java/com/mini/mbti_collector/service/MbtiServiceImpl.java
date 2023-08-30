@@ -65,7 +65,7 @@ public class MbtiServiceImpl implements MbtiService {
 
         // DTO 반환
         return new MbtiDto.LatestResult(latestResult.getEPercent(), latestResult.getNPercent(),
-                latestResult.getTPercent(), latestResult.getJPercent(), latestResult.getResultMbti());
+                latestResult.getTPercent(), latestResult.getJPercent(), latestResult.getResultMbti(), latestResult.getRegDate());
     }
 
 }

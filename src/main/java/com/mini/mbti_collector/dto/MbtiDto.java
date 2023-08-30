@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,5 +57,8 @@ public class MbtiDto {
         private int jPercent;
         @JsonProperty("result_mbti")
         private String resultMbti;
+        @JsonProperty("reg_date")
+        private LocalDateTime regDate;
+
     }
 }
