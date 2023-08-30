@@ -50,14 +50,4 @@ public class UserDto {
         private String token; // 실패 시 null
         private String errorMessage; // 성공 시 null
     }
-//        public User toEntity() {
-//            User user = new User();
-//            user.setNickname(this.nickname);
-//            user.setEmail(this.email);
-//            user.setPassword(this.password);
-//            user.setCreatedAt(LocalDateTime.now()); // createdAt 필드를 현재 시간으로 설정
-//            user.setDeleted("N"); // deleted 필드를 설정
-//            return user;
-//        }
-
 }
