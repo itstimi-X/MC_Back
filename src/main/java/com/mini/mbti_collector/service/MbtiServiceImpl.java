@@ -44,5 +44,29 @@ public class MbtiServiceImpl implements MbtiService {
                 request.getTPercent(), request.getJPercent());
         mbtiResultRepository.save(mbtiResult);
     }
+    @Override
+    public MbtiDto.LatestResult getLatestMbtiResult(String authorizationHeader) throws Exception {
+        // 토큰에서 email 정보 추출
+        String token = authorizationHeader.substring(7); // "Bearer " 제거
+
+        if (!jwtProvider.validateToken(token)) {
+            throw new CustomAuthenticationException("Invalid Access Token");
+        }
+
+        String emailFromToken = jwtProvider.getEmailFromToken(token);
+
+        // 사용자 정보 얻기
+        User user = userRepository.findByEmail(emailFromToken)
+                .orElseThrow(() -> new Exception("User not found"));
+
+        // 가장 최근의 MBTI 결과를 데이터베이스에서 검색
+        MbtiResult latestResult = mbtiResultRepository.findFirstByUserOrderByRegDateDesc(user)
+                .orElseThrow(() -> new Exception("No MBTI result found for the user"));
+
+        // DTO 반환
+        return new MbtiDto.LatestResult(latestResult.getEPercent(), latestResult.getNPercent(),
+                latestResult.getTPercent(), latestResult.getJPercent(), latestResult.getResultMbti());
+    }
+
 }
 
