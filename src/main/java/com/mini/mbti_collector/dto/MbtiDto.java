@@ -39,4 +39,22 @@ public class MbtiDto {
         @Max(value = 100, message = "jPercent 값은 100 이하여야 합니다.")
         private int jPercent;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LatestResult {
+
+        @JsonProperty("e_percent")
+        private int ePercent;
+        @JsonProperty("n_percent")
+        private int nPercent;
+        @JsonProperty("t_percent")
+        private int tPercent;
+        @JsonProperty("j_percent")
+        private int jPercent;
+        @JsonProperty("result_mbti")
+        private String resultMbti;
+    }
 }
