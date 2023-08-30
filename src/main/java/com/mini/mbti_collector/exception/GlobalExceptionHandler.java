@@ -13,6 +13,11 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+//    @ExceptionHandler(CustomAuthenticationException.class)
+//    public ResponseEntity<?> handleCustomAuthenticationException(CustomAuthenticationException ex) {
+//        return new ResponseEntity<>(Map.of("success", false, "message", ex.getMessage()), HttpStatus.BAD_REQUEST);
+//    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationExceptions(
             MethodArgumentNotValidException ex, WebRequest request) {

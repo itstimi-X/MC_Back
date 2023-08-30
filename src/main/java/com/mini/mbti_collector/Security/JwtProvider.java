@@ -49,6 +49,10 @@ public class JwtProvider {
         return jwt.getSubject();
     }
 
+    public String getEmailFromToken(String token) {
+        return getSubjectFromToken(token);  // Email is stored in subject
+    }
+
     public boolean validateToken(String token) {
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC512(jwtSecret)).build();
