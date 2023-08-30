@@ -1,2 +1,2 @@
 # MBTI_Collector
-![ERD](https://github.com/itstimi-XD/MBTI_Collector/assets/66657988/0532d7c7-81d8-421e-bdd8-652e36056f11)
+![ERD_colored](https://github.com/itstimi-X/MC_Back/assets/140384460/1fd69f6e-34d0-440a-8252-942cff701cf5)
