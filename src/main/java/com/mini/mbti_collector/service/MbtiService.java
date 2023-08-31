@@ -5,4 +5,6 @@ import com.mini.mbti_collector.dto.MbtiDto.Request;
 
 public interface MbtiService {
     public void saveMbtiResult(String authorizationHeader, MbtiDto.Request request) throws Exception;
+
+    MbtiDto.LatestResult getLatestMbtiResult(String authorizationHeader) throws Exception;
 }
