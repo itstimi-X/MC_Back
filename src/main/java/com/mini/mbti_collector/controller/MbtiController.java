@@ -1,6 +1,7 @@
 package com.mini.mbti_collector.controller;
 
 import com.mini.mbti_collector.dto.MbtiDto;
+import com.mini.mbti_collector.dto.MbtiDto.Response;
 import com.mini.mbti_collector.exception.CustomAuthenticationException;
 import com.mini.mbti_collector.service.MbtiService;
 import com.mini.mbti_collector.service.MbtiServiceImpl;
@@ -39,7 +40,7 @@ public class MbtiController {
     @PostMapping("/api/mbti/latest")
     public ResponseEntity<?> getLatestMbtiResult(@RequestHeader("Authorization") String authorizationHeader) {
         try {
-            MbtiDto.LatestResult result = mbtiService.getLatestMbtiResult(authorizationHeader);
+            Response result = mbtiService.getLatestMbtiResult(authorizationHeader);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (CustomAuthenticationException e) {
             return new ResponseEntity<>(Map.of("success", false, "message", e.getMessage()), HttpStatus.UNAUTHORIZED);

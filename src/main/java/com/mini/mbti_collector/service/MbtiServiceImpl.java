@@ -4,6 +4,7 @@ import com.mini.mbti_collector.Security.JwtProvider;
 import com.mini.mbti_collector.domain.MbtiResult;
 import com.mini.mbti_collector.domain.User;
 import com.mini.mbti_collector.dto.MbtiDto;
+import com.mini.mbti_collector.dto.MbtiDto.Response;
 import com.mini.mbti_collector.exception.CustomAuthenticationException;
 import com.mini.mbti_collector.repository.MbtiResultRepository;
 import com.mini.mbti_collector.repository.UserRepository;
@@ -45,7 +46,7 @@ public class MbtiServiceImpl implements MbtiService {
         mbtiResultRepository.save(mbtiResult);
     }
     @Override
-    public MbtiDto.LatestResult getLatestMbtiResult(String authorizationHeader) throws Exception {
+    public Response getLatestMbtiResult(String authorizationHeader) throws Exception {
         // 토큰에서 email 정보 추출
         String token = authorizationHeader.substring(7); // "Bearer " 제거
 
@@ -64,7 +65,7 @@ public class MbtiServiceImpl implements MbtiService {
                 .orElseThrow(() -> new Exception("No MBTI result found for the user"));
 
         // DTO 반환
-        return new MbtiDto.LatestResult(latestResult.getEPercent(), latestResult.getNPercent(),
+        return new Response(latestResult.getEPercent(), latestResult.getNPercent(),
                 latestResult.getTPercent(), latestResult.getJPercent(), latestResult.getResultMbti(), latestResult.getRegDate());
     }
 
