@@ -45,7 +45,7 @@ public class MbtiDto {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class LatestResult {
+    public static class Response {
 
         @JsonProperty("e_percent")
         private int ePercent;
