@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mbti_collector
+    url: jdbc:mysql://13.125.206.124:3306/mbti_collector
     username: root
-    password: qijcoj-2naqky-gythUt
+    password: my-secret-pw
   mail:
     host: smtp.gmail.com
     port: 465
-    username: ${MY_MAIL}
-    password: ${MAIL_PW}
+    username: ssk0710402@gmail.com
+    password: rffhomdpqplzohvl
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
@@ -57,7 +57,7 @@ jwt:
 server:
   ssl:
     key-store-type: PKCS12
-    key-store: classpath:keystore.p12
+    key-store: /app/ssl/keystore.p12
     key-store-password: acrofuture
     key-alias: tomcat
   port : 8443
